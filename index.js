@@ -1,11 +1,12 @@
-const express = require("express");
+import connection from "./src/db/index.js";
+import { app } from "./src/app.js";
 
-const app = express();
-app.get("/", (req, res) => {
-  res.send("Express on Vercel");
-});
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
-module.exports=app
+const PORT = process.env.PORT || 8000;
+
+connection()
+  .then(
+    app.listen(PORT, () => {
+      console.log("server is running on porty ", PORT);
+    })
+  )
+  .catch((err) => console.log("connection failed", err));
